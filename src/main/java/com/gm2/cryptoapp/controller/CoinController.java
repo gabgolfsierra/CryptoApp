@@ -21,6 +21,15 @@ public class CoinController {
         return new ResponseEntity(coinRepository.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity get(@PathVariable String name){
+        try{
+            return new ResponseEntity<>(coinRepository.getByName(name), HttpStatus.OK);
+        }
+        catch(Exception error){
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PostMapping()
     public ResponseEntity post (@RequestBody Coin coin){
